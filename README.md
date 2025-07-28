@@ -7,3 +7,4 @@ The rapid emergence of AI coding agents has ushered in a new era of software dev
 
 We need a vendor-agnostic standard designed to unify the definition, scoping, and application of rules for AI coding agent behavior. The proposed specification synthesizes existing best practices observed in leading tools and introduces a resilient framework to support the future evolution of AI-assisted development.
 
+
