@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Report: The AI Coding Agent Rule Specification (AI-Rule-Spec)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Warm Neutral Harmony" -->
+    <!-- Application Structure Plan: The SPA is designed with a top-down, thematic structure to guide the user from the high-level problem to the detailed solution. It starts with a hero section summarizing the report's purpose. A sticky navigation bar allows users to jump to key sections: 'Landscape' (current state), 'Comparison' (analysis), 'Principles' (core ideas), and 'The Specification' (the proposed solution). This non-linear navigation is crucial for usability, allowing different personas (e.g., developers, managers) to access relevant information quickly. The 'Comparison' section uses an interactive chart and a detailed table to make the dense data digestible. 'The Specification' section uses an interactive tabbed interface to break down the complex proposal into manageable parts (Anatomy, Scoping, etc.), which is more engaging than a long wall of text. This structure was chosen to transform a linear document into an exploratory tool, enhancing comprehension and user engagement. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Comparison of Cursor, Windsurf, GitHub Copilot. Goal: Compare. Viz/Method: Interactive Radar Chart (Chart.js) and a detailed HTML table. Interaction: Hovering over the chart reveals tool strengths; the table provides deep-dive information. Justification: A radar chart provides an immediate visual summary of how tools stack up across multiple features. The table offers the necessary detail for a thorough comparison. Library: Chart.js for its simplicity and responsiveness.
+        - Report Info: Hierarchical Scoping Model. Goal: Organize. Viz/Method: Styled HTML/CSS diagram using nested divs and borders. Interaction: Static visual with clear labels. Justification: A visual diagram is more intuitive for understanding hierarchical relationships than text alone. It clearly shows the precedence from User to Global rules. Method: Tailwind CSS for styling.
+        - Report Info: AI-Rule-Spec Components. Goal: Inform/Organize. Viz/Method: Interactive Tabbed Interface. Interaction: Clicking tabs reveals content for different components (RDL, Scoping, Anatomy, etc.). Justification: Tabs break down the dense specification into logical, digestible chunks, preventing information overload and improving user focus. Method: Vanilla JS and Tailwind CSS.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8; /* Warm Neutral Background */
+            color: #4B4B4B;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #D97706; /* Amber-700 */
+            border-bottom-color: #D97706;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .tab-button {
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .tab-button.active {
+            background-color: #F59E0B; /* Amber-500 */
+            color: #ffffff;
+        }
+        .section-card {
+            background-color: #FFFFFF;
+            border: 1px solid #F3F4F6; /* Gray-100 */
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+        }
+        .hierarchy-box {
+            border: 2px solid #E5E7EB; /* Gray-200 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            background-color: #FAFAF9; /* Stone-50 */
+            margin: 0.5rem 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .hierarchy-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
+        }
+        .hierarchy-arrow {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #9CA3AF; /* Gray-400 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-gray-800">AI Coding Agent Rules</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#landscape" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Landscape</a>
+                        <a href="#comparison" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Comparison</a>
+                        <a href="#principles" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Principles</a>
+                        <a href="#specification" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">The Specification</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <!-- Hero Section -->
+        <section class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">A Proposal for Standardized AI-Assisted Development</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600">
+                This interactive report explores the fragmented landscape of AI coding agent rules and proposes the <strong class="font-semibold text-gray-800">AI Coding Agent Rules</strong>, a unified standard to foster interoperability, quality, and security in AI-assisted software engineering.
+            </p>
+        </section>
+
+        <!-- Current Landscape Section -->
+        <section id="landscape" class="mb-16 scroll-mt-20">
+            <div class="section-card p-6 md:p-8">
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">Current Landscape: The Fragmentation Problem</h3>
+                <p class="text-gray-600 mb-6">
+                    The power of AI coding agents is undeniable, but their growth has led to a fractured ecosystem. Each major tool (e.g. Cursor, Windsurf, GitHub Copilot, etc.) uses its own proprietary system for defining the rules that guide AI behavior. This section provides an overview of each tool's approach, highlighting the challenges this fragmentation creates for developers and organizations aiming for consistent, high-quality, and secure code.
+                </p>
+                <p>We need a vendor-agnostic standard designed to unify the definition, scoping, and application of rules for AI coding agent behavior. The proposed specification synthesizes existing best practices observed in leading tools and introduces a resilient framework to support the future evolution of AI-assisted development.</p>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                        <h4 class="font-bold text-lg mb-2 text-gray-800">Cursor AI</h4>
+                        <p class="text-sm text-gray-600">Focuses on contextual control and iterative refinement with version-controlled <strong class="font-semibold">Project Rules</strong> and powerful self-correction in <strong class="font-semibold">"YOLO mode"</strong>.</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                        <h4 class="font-bold text-lg mb-2 text-gray-800">Windsurf AI</h4>
+                        <p class="text-sm text-gray-600">Employs agentic policies and "Vibe Coding" principles, using <strong class="font-semibold">Global</strong> and <strong class="font-semibold">Project-Specific Rules</strong> to prevent "AI drift".</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                        <h4 class="font-bold text-lg mb-2 text-gray-800">GitHub Copilot</h4>
+                        <p class="text-sm text-gray-600">Offers extensive customization through a hierarchy of <strong class="font-semibold">Personal, Repository, and Organization</strong> instructions for broad governance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section id="comparison" class="mb-16 scroll-mt-20">
+            <div class="section-card p-6 md:p-8">
+                <h3 class="text-3xl font-bold text-gray-900 mb-2 text-center">Comparative Analysis</h3>
+                <p class="text-gray-600 mb-8 text-center max-w-2xl mx-auto">
+                    To understand the path to standardization, we must first compare the existing systems. The chart below provides a high-level visual comparison of key features, while the table offers a detailed breakdown. This analysis reveals both common trends and unique innovations that inform the proposed standard.
+                </p>
+                <div class="chart-container mb-12">
+                    <canvas id="comparisonChart"></canvas>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feature</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cursor AI</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Windsurf AI</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">GitHub Copilot</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Scoping Hierarchy</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Project, User, Nested Dirs</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Global, Project</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Org, Repo, Personal</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Iterative Behavior</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">High (YOLO mode)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-600 font-semibold">Medium (Cascade)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-semibold">Low</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Version Control</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">Yes</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">Yes</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">Yes</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">External Tool Access</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-600 font-semibold">Limited</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">Yes</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">Yes (Explicit)</td>
+                            </tr>
+                             <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Definition Format</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Markdown</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Markdown</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Markdown</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Foundational Principles Section -->
+        <section id="principles" class="mb-16 scroll-mt-20">
+            <div class="section-card p-6 md:p-8">
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">Foundational Principles for a Standard</h3>
+                <p class="text-gray-600 mb-8">
+                    Based on the analysis of existing systems and software engineering best practices, a successful standard must be built on a set of core principles. These tenets ensure the standard is robust, future-proof, and serves the needs of the entire development community.
+                </p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="p-4">
+                        <h4 class="font-bold text-lg mb-1 text-gray-800">Declarative & Human-Readable</h4>
+                        <p class="text-sm text-gray-600">Define *what* to do, not *how*. Use natural language for clarity.</p>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-lg mb-1 text-gray-800">Modular & Composable</h4>
+                        <p class="text-sm text-gray-600">Build complex behaviors from small, reusable rule components.</p>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-lg mb-1 text-gray-800">Hierarchical & Overridable</h4>
+                        <p class="text-sm text-gray-600">Support layers of rules (user, project, org) with clear precedence.</p>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-lg mb-1 text-gray-800">Version-Controlled & Discoverable</h4>
+                        <p class="text-sm text-gray-600">Treat rules as code, storing them alongside the project in Git.</p>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-lg mb-1 text-gray-800">Testable & Validatable</h4>
+                        <p class="text-sm text-gray-600">Ensure rules can be verified to prevent "AI drift" and errors.</p>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-lg mb-1 text-gray-800">Extensible & Tool-Agnostic</h4>
+                        <p class="text-sm text-gray-600">Accommodate future AI capabilities and prevent vendor lock-in.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Specification Section -->
+        <section id="specification" class="scroll-mt-20">
+             <div class="section-card p-6 md:p-8">
+                <h3 class="text-3xl font-bold text-gray-900 mb-2 text-center">The AI-Rule-Spec Proposal</h3>
+                <p class="text-gray-600 mb-8 text-center max-w-3xl mx-auto">
+                    The AI-Rule-Spec is a unified framework for defining AI coding agent rules. It combines the precision of a structured format (YAML) with the expressiveness of natural language (Markdown). Explore the core components of the proposed specification below.
+                </p>
+
+                <div class="flex flex-col md:flex-row gap-8">
+                    <!-- Tabs Navigation -->
+                    <div class="w-full md:w-1/4">
+                        <div id="tabs-nav" class="flex md:flex-col space-x-2 md:space-x-0 md:space-y-1" role="tablist" aria-orientation="vertical">
+                            <button class="tab-button w-full text-left px-4 py-2 rounded-md text-sm font-medium active" id="tab-rdl-button" role="tab" aria-selected="true" aria-controls="tab-rdl">Rule Definition Language</button>
+                            <button class="tab-button w-full text-left px-4 py-2 rounded-md text-sm font-medium" id="tab-scoping-button" role="tab" aria-selected="false" aria-controls="tab-scoping">Scoping & Hierarchy</button>
+                            <button class="tab-button w-full text-left px-4 py-2 rounded-md text-sm font-medium" id="tab-anatomy-button" role="tab" aria-selected="false" aria-controls="tab-anatomy">Rule Anatomy</button>
+                            <button class="tab-button w-full text-left px-4 py-2 rounded-md text-sm font-medium" id="tab-example-button" role="tab" aria-selected="false" aria-controls="tab-example">Example Rule</button>
+                        </div>
+                    </div>
+
+                    <!-- Tabs Content -->
+                    <div class="w-full md:w-3/4">
+                        <div id="tab-rdl" role="tabpanel" aria-labelledby="tab-rdl-button">
+                            <h4 class="text-2xl font-bold text-gray-800 mb-3">Rule Definition Language (RDL)</h4>
+                            <p class="text-gray-600 mb-4">The spec proposes a hybrid format: YAML for machine-readable structure and metadata, with embedded Markdown for human-readable, natural language guidance. This balances precision for tools with the flexibility needed to convey nuanced intent to an LLM.</p>
+                            <pre class="bg-gray-800 text-white p-4 rounded-lg text-sm overflow-x-auto"><code>id: "unique-rule-id"
+name: "Human-Readable Name"
+description: "What this rule does."
+guidance: |
+  # Markdown instructions for the AI
+  - Follow these steps...
+  - Use this specific library...</code></pre>
+                        </div>
+                        <div id="tab-scoping" role="tabpanel" aria-labelledby="tab-scoping-button" class="hidden">
+                            <h4 class="text-2xl font-bold text-gray-800 mb-3">Scoping & Hierarchy</h4>
+                            <p class="text-gray-600 mb-4">A formalized hierarchy ensures rules are applied predictably. More specific rules override broader ones, providing both centralized governance and local flexibility. The diagram shows the order of precedence.</p>
+                            <div class="hierarchy-box font-semibold text-amber-700">User Rules (Highest Priority)</div>
+                            <div class="hierarchy-arrow">↓</div>
+                            <div class="hierarchy-box">Subdirectory Project Rules</div>
+                            <div class="hierarchy-arrow">↓</div>
+                            <div class="hierarchy-box">Root Project Rules</div>
+                            <div class="hierarchy-arrow">↓</div>
+                            <div class="hierarchy-box">Organization Rules</div>
+                            <div class="hierarchy-arrow">↓</div>
+                            <div class="hierarchy-box font-semibold text-gray-500">Global Rules (Lowest Priority)</div>
+                        </div>
+                        <div id="tab-anatomy" role="tabpanel" aria-labelledby="tab-anatomy-button" class="hidden">
+                             <h4 class="text-2xl font-bold text-gray-800 mb-3">Rule Anatomy</h4>
+                             <p class="text-gray-600 mb-4">Each rule is composed of standardized fields to ensure it is discoverable, understandable, and actionable by any compliant AI agent.</p>
+                             <ul class="list-disc list-inside space-y-2 text-gray-600">
+                                <li><strong class="font-semibold text-gray-700">id, name, description:</strong> Core identifiers.</li>
+                                <li><strong class="font-semibold text-gray-700">guidance:</strong> The Markdown-based instructions for the AI.</li>
+                                <li><strong class="font-semibold text-gray-700">applies_when, triggers:</strong> Defines the context for rule activation.</li>
+                                <li><strong class="font-semibold text-gray-700">examples:</strong> Concrete good/bad code snippets to guide the AI.</li>
+                                <li><strong class="font-semibold text-gray-700">tools_allowed:</strong> Explicitly grants permission to use tools like `run_command` or `web_search`.</li>
+                                <li><strong class="font-semibold text-gray-700">priority:</strong> A numeric value for fine-grained conflict resolution.</li>
+                             </ul>
+                        </div>
+                        <div id="tab-example" role="tabpanel" aria-labelledby="tab-example-button" class="hidden">
+                            <h4 class="text-2xl font-bold text-gray-800 mb-3">Illustrative Example: Clean Architecture</h4>
+                            <p class="text-gray-600 mb-4">This example shows how the spec can enforce a complex architectural pattern, including directory structure, dependency rules, and security policies for API endpoints.</p>
+                             <pre class="bg-gray-800 text-white p-4 rounded-lg text-sm overflow-x-auto"><code>- id: "arch-clean-service-template"
+  name: "Clean Architecture Service Template"
+  description: "Ensures new services adhere to Clean Architecture principles."
+  applies_when:
+    paths: ["**/src/services/**/*.ts"]
+  guidance: |
+    # Clean Architecture Service Guidelines
+    When creating a service, adhere to Clean Architecture.
+
+    **1. Directory Structure:**
+    - `domain/`: Core business logic.
+    - `application/`: Use cases.
+    - `infrastructure/`: External details (DB, APIs).
+    
+    **2. API Endpoint Security:**
+    - **Input Validation:** Always use Zod for validation.
+    - **Authentication:** Ensure JWT/OAuth2 checks.
+  tools_allowed:
+    - "read_file"
+    - "write_file"
+    - "run_command"</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500 text-sm">
+            <p>An Interactive Exploration of the AI Coding Agent Rule Specification (AI-Rule-Spec).</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Chart.js Implementation
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+            const comparisonChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Scoping Hierarchy', 
+                        'Iterative Behavior', 
+                        'Version Control', 
+                        'External Tool Access', 
+                        'Governance Focus'
+                    ],
+                    datasets: [{
+                        label: 'Cursor AI',
+                        data: [4, 5, 5, 3, 3],
+                        backgroundColor: 'rgba(234, 179, 8, 0.2)',
+                        borderColor: 'rgba(234, 179, 8, 1)',
+                        pointBackgroundColor: 'rgba(234, 179, 8, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(234, 179, 8, 1)'
+                    }, {
+                        label: 'Windsurf AI',
+                        data: [3, 4, 5, 5, 4],
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(59, 130, 246, 1)'
+                    }, {
+                        label: 'GitHub Copilot',
+                        data: [5, 2, 5, 5, 5],
+                        backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                        borderColor: 'rgba(16, 185, 129, 1)',
+                        pointBackgroundColor: 'rgba(16, 185, 129, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(16, 185, 129, 1)'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 12,
+                                    family: 'Inter'
+                                },
+                                color: '#4B4B4B'
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(255, 255, 255, 0.75)',
+                                stepSize: 1,
+                                max: 5,
+                                min: 0
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.r !== null) {
+                                        label += context.parsed.r;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Smooth Scrolling & Active Nav Link
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, { rootMargin: "-50% 0px -50% 0px" });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Tabbed Interface Logic
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Deactivate all
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.setAttribute('aria-selected', 'false');
+                    });
+                    tabPanels.forEach(panel => {
+                        panel.classList.add('hidden');
+                    });
+
+                    // Activate clicked
+                    button.classList.add('active');
+                    button.setAttribute('aria-selected', 'true');
+                    const targetPanelId = button.getAttribute('aria-controls');
+                    document.getElementById(targetPanelId).classList.remove('hidden');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
