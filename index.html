@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The AI Coding Agent Rule Specification (AI-Rule-Spec) is a unified framework for defining AI coding agent rules. It combines the precision of a structured format (YAML) with the expressiveness of natural language (Markdown)."> 
+    <meta name="author" content="Omar Santos">
+    <meta name="keywords" content="AI Coding Agent Rules, AI Coding Agent Rule Specification, AI Coding Agent Rule Spec, AI Coding Agent Rule Spec Proposal, AI Coding Agent Rule Spec Implementation, AI Coding Agent Rule Spec Comparison, AI Coding Agent Rule Spec Implementation Approaches, AI Coding Agent Rule Spec Implementation Patterns, AI Coding Agent Rule Spec Implementation Strategies, AI Coding Agent Rule Spec Implementation Approaches, AI Coding Agent Rule Spec Implementation Patterns, AI Coding Agent Rule Spec Implementation Strategies, GitHub Copilot, Cursor, Windsurf, Codex, Claude Code, AI Coding Agent Rules, GitHub Copilot, Cursor, Windsurf, Codex, Augment Code, Claude Code">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    <meta name="yandexbot" content="index, follow">
+    <meta name="sitemap" content="https://aicodingrules.org/sitemap.xml">
+    <link rel="icon" type="image/png" href="favicon.png">
     <title>Interactive Report: The AI Coding Agent Rule Specification (AI-Rule-Spec)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -99,7 +108,7 @@
         <section class="text-center mb-16">
             <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">Standardized Rules for AI-assisted Software Development and Coding Agents</h2>
             <p class="max-w-3xl mx-auto text-lg text-gray-600">
-                This site explores the fragmented landscape of AI coding agent rules and proposes the <strong class="font-semibold text-gray-800">AI Coding Agent Rules</strong>, a unified standard to enable interoperability, quality, and security in AI-assisted software engineering. Questions? Contact  <a href="https://www.linkedin.com/in/santosomar/" class="text-blue-600"> Omar Santos via LinkedIn</a>.
+                Software development is changing rapidly, and AI coding agents (Codex, Claude Code, GitHub Copilot, Cursor, Windsurf, etc.) are at the forefront of this transformation.  This initiative explores the fragmented landscape of AI coding agent rules and proposes the <strong class="font-semibold text-gray-800">AI Coding Agent Rules</strong>, a unified standard to enable interoperability, quality, and security in AI-assisted software engineering.
             </p>
         </section>
 
@@ -111,29 +120,16 @@
                     The power of AI coding agents is undeniable, but their growth has led to a fractured ecosystem. Each major tool (e.g. Cursor, Windsurf, GitHub Copilot, etc.) uses its own proprietary system for defining the rules that guide AI behavior. This section provides an overview of each tool's approach, highlighting the challenges this fragmentation creates for developers and organizations aiming for consistent, high-quality, and secure code.
                 </p>
                 <p>We need a vendor-agnostic standard designed to unify the definition, scoping, and application of rules for AI coding agent behavior. The proposed specification synthesizes existing best practices observed in leading tools and introduces a resilient framework to support the future evolution of AI-assisted development.</p>
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                        <h4 class="font-bold text-lg mb-2 text-gray-800">Cursor AI</h4>
-                        <p class="text-sm text-gray-600">Focuses on contextual control and iterative refinement with version-controlled <strong class="font-semibold">Project Rules</strong> and powerful self-correction in <strong class="font-semibold">"YOLO mode"</strong>.</p>
-                    </div>
-                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                        <h4 class="font-bold text-lg mb-2 text-gray-800">Windsurf AI</h4>
-                        <p class="text-sm text-gray-600">Employs agentic policies and "Vibe Coding" principles, using <strong class="font-semibold">Global</strong> and <strong class="font-semibold">Project-Specific Rules</strong> to prevent "AI drift".</p>
-                    </div>
-                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                        <h4 class="font-bold text-lg mb-2 text-gray-800">GitHub Copilot</h4>
-                        <p class="text-sm text-gray-600">Offers extensive customization through a hierarchy of <strong class="font-semibold">Personal, Repository, and Organization</strong> instructions for broad governance.</p>
-                    </div>
-                </div>
+
             </div>
         </section>
 
         <!-- Comparison Section -->
         <section id="comparison" class="mb-16 scroll-mt-20">
             <div class="section-card p-6 md:p-8">
-                <h3 class="text-3xl font-bold text-gray-900 mb-2 text-center">Comparative Analysis</h3>
+                <h3 class="text-3xl font-bold text-gray-900 mb-2 text-center">Current Rule System Implementations</h3>
                 <p class="text-gray-600 mb-8 text-center max-w-2xl mx-auto">
-                    To understand the path to standardization, we must first compare the existing systems. The chart below provides a high-level visual comparison of key features, while the table offers a detailed breakdown. This analysis reveals both common trends and unique innovations that inform the proposed standard.
+                    Each major AI coding agent has developed its own approach to rule definition and management. The chart below provides a high-level visual comparison of key features across platforms, while the table offers a detailed breakdown of their current implementations. They are all great in most of the categories; however, this analysis reveals the fragmentation that motivates the need for a unified standard.
                 </p>
                 <div class="chart-container mb-12">
                     <canvas id="comparisonChart"></canvas>
@@ -143,47 +139,64 @@
                         <thead class="bg-gray-50">
                             <tr>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feature</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cursor AI</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Windsurf AI</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cursor</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Windsurf</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">GitHub Copilot</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Augment Code</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Scoping Hierarchy</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Project, User, Nested Dirs</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Global, Project</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Org, Repo, Personal</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">File Location</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.cursor/rules + User Rules</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">global_rules.md + .windsurf/rules</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.github/copilot-instructions.md</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.augment/rules</td>
                             </tr>
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Iterative Behavior</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">High (YOLO mode)</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-600 font-semibold">Medium (Cascade)</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-semibold">Low</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Rule Types</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Always, Auto, Agent, Manual</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Always On, Model Decision, Glob, Manual</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Repository-wide with applyTo scoping</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Always, Auto, Manual</td>
                             </tr>
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Version Control</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">Yes</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">Yes</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">Yes</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Scoping Mechanism</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Nested dirs + glob patterns</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Global vs Workspace + globs</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">applyTo frontmatter</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Directory auto-import</td>
                             </tr>
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">External Tool Access</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-600 font-semibold">Limited</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">Yes</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">Yes (Explicit)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">File Format</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">MDC with metadata</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Markdown (12K limit)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Markdown</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">.md or .mdx</td>
                             </tr>
                              <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Definition Format</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Markdown</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Markdown</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Markdown</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Manual Activation</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">@ruleName</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">@mention</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-semibold">Not supported</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">@tag</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">AI-Driven Selection</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">Yes (Agent Requested)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">Yes (Model Decision)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-semibold">No</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">Yes (Auto)</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
+        
+
+
+
         
         <!-- Foundational Principles Section -->
         <section id="principles" class="mb-16 scroll-mt-20">
@@ -195,7 +208,7 @@
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="p-4">
                         <h4 class="font-bold text-lg mb-1 text-gray-800">Declarative & Human-Readable</h4>
-                        <p class="text-sm text-gray-600">Define *what* to do, not *how*. Use natural language for clarity.</p>
+                        <p class="text-sm text-gray-600">Define *what* to do using natural language for model-agnostic readability.</p>
                     </div>
                     <div class="p-4">
                         <h4 class="font-bold text-lg mb-1 text-gray-800">Modular & Composable</h4>
@@ -207,7 +220,7 @@
                     </div>
                     <div class="p-4">
                         <h4 class="font-bold text-lg mb-1 text-gray-800">Version-Controlled & Discoverable</h4>
-                        <p class="text-sm text-gray-600">Treat rules as code, storing them alongside the project in Git.</p>
+                        <p class="text-sm text-gray-600">Treat rules as code, storing them alongside the project in Git. This is the best distribution mechanism for rules.</p>
                     </div>
                     <div class="p-4">
                         <h4 class="font-bold text-lg mb-1 text-gray-800">Testable & Validatable</h4>
@@ -215,7 +228,7 @@
                     </div>
                     <div class="p-4">
                         <h4 class="font-bold text-lg mb-1 text-gray-800">Extensible & Tool-Agnostic</h4>
-                        <p class="text-sm text-gray-600">Accommodate future AI capabilities and prevent vendor lock-in.</p>
+                        <p class="text-sm text-gray-600">Accommodate future AI capabilities and prevent vendor lock-in. This is the best way to ensure that the rules are not tied to a specific tool.</p>
                     </div>
                 </div>
             </div>
@@ -224,9 +237,11 @@
         <!-- The Specification Section -->
         <section id="specification" class="scroll-mt-20">
              <div class="section-card p-6 md:p-8">
-                <h3 class="text-3xl font-bold text-gray-900 mb-2 text-center">The AI-Rule-Spec Proposal</h3>
+                <h3 class="text-3xl font-bold text-gray-900 mb-2 text-center">The AI Coding Agent Rule Spec Proposal</h3>
                 <p class="text-gray-600 mb-8 text-center max-w-3xl mx-auto">
-                    The AI-Rule-Spec is a unified framework for defining AI coding agent rules. It combines the precision of a structured format (YAML) with the expressiveness of natural language (Markdown). Explore the core components of the proposed specification below.
+                    The Open AI Coding Agent Rule standard is a unified framework for defining AI coding agent rules. It combines the precision of a structured format (YAML) with the expressiveness of natural language (Markdown). Explore the core components of the proposed specification below.
+                <br>
+                    Questions? Contact  <a href="https://www.linkedin.com/in/santosomar/" class="text-blue-600"> Omar Santos via LinkedIn</a>.
                 </p>
 
                 <div class="flex flex-col md:flex-row gap-8">
@@ -256,19 +271,15 @@ guidance: |
                         <div id="tab-scoping" role="tabpanel" aria-labelledby="tab-scoping-button" class="hidden">
                             <h4 class="text-2xl font-bold text-gray-800 mb-3">Scoping & Hierarchy</h4>
                             <p class="text-gray-600 mb-4">A formalized hierarchy ensures rules are applied predictably. More specific rules override broader ones, providing both centralized governance and local flexibility. The diagram shows the order of precedence.</p>
-                            <div class="hierarchy-box font-semibold text-amber-700">User Rules (Highest Priority)</div>
+                            <div class="hierarchy-box font-semibold text-amber-700">Organization Rules (Highest Priority)</div>
                             <div class="hierarchy-arrow">↓</div>
-                            <div class="hierarchy-box">Subdirectory Project Rules</div>
+                            <div class="hierarchy-box">User Global Rules</div>
                             <div class="hierarchy-arrow">↓</div>
-                            <div class="hierarchy-box">Root Project Rules</div>
-                            <div class="hierarchy-arrow">↓</div>
-                            <div class="hierarchy-box">Organization Rules</div>
-                            <div class="hierarchy-arrow">↓</div>
-                            <div class="hierarchy-box font-semibold text-gray-500">Global Rules (Lowest Priority)</div>
+                            <div class="hierarchy-box">User Project/Workspace Rules</div>
                         </div>
                         <div id="tab-anatomy" role="tabpanel" aria-labelledby="tab-anatomy-button" class="hidden">
-                             <h4 class="text-2xl font-bold text-gray-800 mb-3">Rule Anatomy</h4>
-                             <p class="text-gray-600 mb-4">Each rule is composed of standardized fields to ensure it is discoverable, understandable, and actionable by any compliant AI agent.</p>
+                             <h4 class="text-2xl font-bold text-gray-800 mb-3">Example Rule Anatomy</h4>
+                             <p class="text-gray-600 mb-4">The following is an example of a rule that is composed of standardized fields to ensure it is discoverable, understandable, and actionable by any compliant AI agent.</p>
                              <ul class="list-disc list-inside space-y-2 text-gray-600">
                                 <li><strong class="font-semibold text-gray-700">id, name, description:</strong> Core identifiers.</li>
                                 <li><strong class="font-semibold text-gray-700">guidance:</strong> The Markdown-based instructions for the AI.</li>
@@ -295,13 +306,13 @@ guidance: |
     - `application/`: Use cases.
     - `infrastructure/`: External details (DB, APIs).
     
-    **2. API Endpoint Security:**
-    - **Input Validation:** Always use Zod for validation.
-    - **Authentication:** Ensure JWT/OAuth2 checks.
-  tools_allowed:
-    - "read_file"
-    - "write_file"
-    - "run_command"</code></pre>
+    **2. Credential Security:**
+    - NEVER store credentials in the codebase.
+    - Use environment variables in examples but suggest the use of a secrets manager.
+    - Use a tool like `dotenv` to load environment variables from a `.env` file.
+    - Use a tool like `dotenv-expand` to expand environment variables in the codebase.
+    - Use a tool like `dotenv-vault` to store and manage environment variables in a secure way. 
+    </code></pre>
                         </div>
                     </div>
                 </div>
@@ -312,7 +323,7 @@ guidance: |
 
     <footer class="bg-white border-t border-gray-200 mt-16">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500 text-sm">
-            <p>An Interactive Exploration of the AI Coding Agent Rule Specification (AI-Rule-Spec).</p>
+            <p>Questions? Contact  <a href="https://www.linkedin.com/in/santosomar/" class="text-blue-600"> Omar Santos via LinkedIn</a>.</p>
         </div>
     </footer>
 
@@ -324,15 +335,15 @@ guidance: |
                 type: 'radar',
                 data: {
                     labels: [
-                        'Scoping Hierarchy', 
-                        'Iterative Behavior', 
-                        'Version Control', 
-                        'External Tool Access', 
-                        'Governance Focus'
+                        'Rule Flexibility', 
+                        'Scoping Sophistication', 
+                        'Ease of Setup', 
+                        'AI Integration', 
+                        'Developer Experience'
                     ],
                     datasets: [{
-                        label: 'Cursor AI',
-                        data: [4, 5, 5, 3, 3],
+                        label: 'Cursor',
+                        data: [5, 5, 4, 5, 5],
                         backgroundColor: 'rgba(234, 179, 8, 0.2)',
                         borderColor: 'rgba(234, 179, 8, 1)',
                         pointBackgroundColor: 'rgba(234, 179, 8, 1)',
@@ -340,8 +351,8 @@ guidance: |
                         pointHoverBackgroundColor: '#fff',
                         pointHoverBorderColor: 'rgba(234, 179, 8, 1)'
                     }, {
-                        label: 'Windsurf AI',
-                        data: [3, 4, 5, 5, 4],
+                        label: 'Windsurf',
+                        data: [4, 4, 4, 4, 4],
                         backgroundColor: 'rgba(59, 130, 246, 0.2)',
                         borderColor: 'rgba(59, 130, 246, 1)',
                         pointBackgroundColor: 'rgba(59, 130, 246, 1)',
@@ -350,13 +361,22 @@ guidance: |
                         pointHoverBorderColor: 'rgba(59, 130, 246, 1)'
                     }, {
                         label: 'GitHub Copilot',
-                        data: [5, 2, 5, 5, 5],
+                        data: [2, 3, 5, 2, 3],
                         backgroundColor: 'rgba(16, 185, 129, 0.2)',
                         borderColor: 'rgba(16, 185, 129, 1)',
                         pointBackgroundColor: 'rgba(16, 185, 129, 1)',
                         pointBorderColor: '#fff',
                         pointHoverBackgroundColor: '#fff',
                         pointHoverBorderColor: 'rgba(16, 185, 129, 1)'
+                    }, {
+                        label: 'Augment Code',
+                        data: [3, 3, 4, 4, 4],
+                        backgroundColor: 'rgba(147, 51, 234, 0.2)',
+                        borderColor: 'rgba(147, 51, 234, 1)',
+                        pointBackgroundColor: 'rgba(147, 51, 234, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(147, 51, 234, 1)'
                     }]
                 },
                 options: {
