@@ -291,7 +291,7 @@ guidance: |
                         </div>
                         <div id="tab-example" role="tabpanel" aria-labelledby="tab-example-button" class="hidden">
                             <h4 class="text-2xl font-bold text-gray-800 mb-3">Illustrative Example: Clean Architecture</h4>
-                            <p class="text-gray-600 mb-4">This example shows how the spec can enforce a complex architectural pattern, including directory structure, dependency rules, and security policies for API endpoints.</p>
+                            <p class="text-gray-600 mb-4">This example shows how the spec can enforce a complex architectural pattern, including directory structure and security guidelines for credential security.</p>
                              <pre class="bg-gray-800 text-white p-4 rounded-lg text-sm overflow-x-auto"><code>- id: "arch-clean-service-template"
   name: "Clean Architecture Service Template"
   description: "Ensures new services adhere to Clean Architecture principles."
@@ -307,7 +307,7 @@ guidance: |
     - `infrastructure/`: External details (DB, APIs).
     
     **2. Credential Security:**
-    - NEVER store credentials in the codebase.
+    - NEVER store credentials in the codebase (i.e., NO hardcoded credentials)
     - Use environment variables in examples but suggest the use of a secrets manager.
     - Use a tool like `dotenv` to load environment variables from a `.env` file.
     - Use a tool like `dotenv-expand` to expand environment variables in the codebase.
